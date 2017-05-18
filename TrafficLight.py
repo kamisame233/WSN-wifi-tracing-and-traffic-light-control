@@ -1,6 +1,7 @@
 # Echo server program
 import socket
 import send_And_receive
+import Find_my_ip
 def LightControl():
 
 	print 'traffic light changed';
@@ -26,6 +27,7 @@ while 1:
 	#print 'Received instruction', data
 
 	data1=send_And_receive.receive()
+	#print 'Traffic light ip :'+Find_my_ip.find()
 	#print 'Received instruction data1 ', data1
 	LightControl()
 

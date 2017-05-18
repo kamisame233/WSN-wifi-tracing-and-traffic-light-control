@@ -4,7 +4,7 @@ import socket
 import send_And_receive
 import time
 import Find_my_ip
-
+import sys
 
 
 def sendInstruction(Instruction):
@@ -28,7 +28,7 @@ def sendInstruction1(Instruction):
 	print 'sent Traffic light instruction:' + str(Instruction)
 	
 
-def trafficLightPlan(lat, lng, car_type,car_ip):
+def trafficLightPlan(lat, lng, car_type,car_ip,TrafficLightIP):
 	Reference_lat=0
 	Reference_lng=0
 	normal='normal'
@@ -47,8 +47,8 @@ def trafficLightPlan(lat, lng, car_type,car_ip):
 		Instruction='turn on x axis green light for special the car'
 		#to traffic light
 		#address=('127.0.0.1' ,8080)
-		#address=('10.10.11.24' ,8080)
-		address=(Find_my_ip.find() ,8080)
+		address=(TrafficLightIP ,8080)
+		#address=(Find_my_ip.find() ,8080)
 		
 		time.sleep(1)
 		send_And_receive.send(Instruction,address)
@@ -66,7 +66,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST,PORT))
 s.listen(1)
 '''
-
+args = sys.argv[1]
+TrafficLightIP=args
 while 1:
 	'''
 	conn, addr = s.accept()
@@ -90,7 +91,7 @@ while 1:
 	print 'Received location data:'+lat[0]+''+lng[0]+' Car type:'+car_type[0]+' Car ip:'+car_ip[0]
 
 	openChrome.openChrome(float(lat[0]) ,float(lng[0]))
-	trafficLightPlan(lat[0] ,lng[0],car_type[0],car_ip[0])
+	trafficLightPlan(lat[0] ,lng[0],car_type[0],car_ip[0],TrafficLightIP)
 
 	
 	

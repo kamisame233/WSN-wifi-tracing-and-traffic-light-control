@@ -85,10 +85,10 @@ def openChrome(lat, lng):
 	driver.get(url);
 
 
-def send(lat, lng,car_type):
+def send(lat, lng,car_type,ServerIP):
 
 
-	address=(Find_my_ip.find(),2333)
+	address=(ServerIP,2333)
 	send_And_receive.send(str(lat),address)
 	time.sleep(0.3)
 	send_And_receive.send(str(lng),address)
@@ -126,7 +126,8 @@ def send(lat, lng,car_type):
 
 # main
 
-#args = sys.argv
+args = sys.argv[1]
+ServerIP=args
 #argc = len(args)
 #if (len(args) < 3):
 #	print 'Usage: python %s mac_addr_1 mac_addr_2' % args[0]
@@ -145,8 +146,8 @@ if res is None:
 
 print str(res["lat"]) + " " + str(res["lng"]) + " "+ str(res["accuracy"])
 #openChrome( res["lat"], res["lng"] )
-
-send( res["lat"], res["lng"],'normal')
+print ServerIP
+send( res["lat"], res["lng"],'normal',ServerIP)
 
 while 1:
 	send_And_receive.receive_normal()
